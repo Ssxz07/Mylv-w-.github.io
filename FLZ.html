@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Feliz Cumpleaños 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Dancing+Script:wght@700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0d0d0d;
+      --panel:#1a1a1a;
+      --accent:#b3b3b3;
+      --text:#e6e6e6;
+    }
+    html,body{height:100%;margin:0;}
+    body{background:#000;color:var(--text);font-family:'Playfair Display',serif;overflow:hidden;}
+
+    /* Portada estilo menú */
+
+    /* Fondo animado y estrellas sutiles para el menú */
+
+  #menu {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: linear-gradient(270deg, #1a0033, #330033 30%, #ff66cc 60%, #0d0d0d 100%);
+      background-size: 400% 400%;
+      z-index: 999;
+      text-align: center;
+  opacity: 1;
+  filter: blur(0px);
+  transition: opacity 1.6s cubic-bezier(.77,0,.18,1), filter 1.6s cubic-bezier(.77,0,.18,1);
+      overflow: hidden;
+      animation: menuBgMove 16s ease-in-out infinite;
+    }
+    @keyframes menuBgMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    #menu::before {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        repeating-radial-gradient(circle at 20% 30%, #fff8 0 1.2px, transparent 1.2px 80px),
+        repeating-radial-gradient(circle at 80% 70%, #fff5 0 1.7px, transparent 1.7px 120px),
+        repeating-radial-gradient(circle at 60% 10%, #ffb3de88 0 1.5px, transparent 1.5px 100px),
+        repeating-radial-gradient(circle at 10% 80%, #ff66cc88 0 1.2px, transparent 1.2px 90px);
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.32;
+      animation: starsMove 18s linear infinite alternate, starsTwinkle 2.5s ease-in-out infinite;
+    }
+    @keyframes starsMove {
+      0% { background-position: 0 0, 0 0, 0 0, 0 0; }
+      100% { background-position: 80px 120px, 120px 60px, 60px 100px, 100px 60px; }
+    }
+    @keyframes starsTwinkle {
+      0%, 100% { opacity: 0.32; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Tarjeta central del menú */
+    #menu .menu-card {
+      background: rgba(30, 10, 40, 0.92);
+      border-radius: 32px;
+      box-shadow: 0 0 32px 8px #ffb3de55, 0 8px 32px #000a;
+      border: 2.5px solid #ffb3de;
+      padding: 48px 36px 36px 36px;
+      display: inline-block;
+      min-width: 320px;
+      max-width: 90vw;
+      position: relative;
+      z-index: 2;
+      animation: menuCardGlow 2.5s ease-in-out infinite alternate;
+    }
+    @keyframes menuCardGlow {
+      0% { box-shadow: 0 0 32px 8px #ffb3de55, 0 8px 32px #000a; }
+      100% { box-shadow: 0 0 48px 16px #ffb3de99, 0 8px 32px #000a; }
+    }
+
+    #menu h1 {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 30px;
+      color: #fff;
+      margin-bottom: 44px;
+      background: linear-gradient(90deg, #ffb3de 20%, #fff 50%, #ff66cc 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 18px #ffb3de, 0 0 32px #ff66cc99;
+      letter-spacing: 2px;
+      filter: brightness(1.2);
+    }
+
+    #startBtn, #muteBtn {
+      padding: 18px 38px;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 15px;
+      background: linear-gradient(90deg, #ff66cc 0%, #ffb3de 100%);
+      color: white;
+      border: none;
+      border-radius: 18px;
+      cursor: pointer;
+      box-shadow: 0 0 16px #ffb3de99, 0 2px 8px #0006;
+      transition: 0.25s;
+      margin: 12px 8px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      outline: none;
+      position: relative;
+      z-index: 2;
+    }
+    #startBtn:hover, #muteBtn:hover {
+      transform: scale(1.08) rotate(-1deg);
+      background: linear-gradient(90deg, #ffb3de 0%, #ff66cc 100%);
+      box-shadow: 0 0 32px #ffb3decc, 0 2px 12px #0008;
+      filter: brightness(1.1);
+    }
+    #startBtn:active, #muteBtn:active {
+      filter: brightness(0.95);
+      transform: scale(0.98);
+    }
+    #menu.fade-out {
+      opacity: 0;
+      filter: blur(18px);
+      pointer-events: none;
+    }
+
+    /* Carta romántica */
+    #game{
+      display:none;
+      height:100%;
+      align-items:center;justify-content:center;
+      padding:20px;
+      opacity:0;
+      filter: blur(18px);
+      transition: opacity 1.6s cubic-bezier(.77,0,.18,1), filter 1.6s cubic-bezier(.77,0,.18,1);
+      overflow:auto;
+    }
+    #game.show{
+      display:flex;
+      opacity:1;
+      filter: blur(0px);
+    }
+    .card{
+      max-width:900px;width:100%;
+      background:
+        linear-gradient(120deg, #1a1a1a 90%, #ffb3de22 100%),
+        repeating-radial-gradient(circle at 30% 20%, #ffb3de33 0 1.5px, transparent 1.5px 80px),
+        repeating-radial-gradient(circle at 80% 80%, #fff2 0 1.2px, transparent 1.2px 100px),
+        var(--panel);
+      border-radius: 18px;
+      box-shadow: 0 0 32px 8px #ffb3de77, 0 10px 25px rgba(255,255,255,0.08), 0 0 0 6px #ffb3de33 inset;
+      border: 3px solid;
+      border-image: linear-gradient(90deg, #ffb3de 10%, #fff 50%, #ff66cc 90%) 1;
+  position: relative;
+    }
+
+    /* Corazones/estrellas decorativos en las esquinas */
+    .card::before, .card::after {
+      content: '💖';
+      position: absolute;
+      font-size: 32px;
+      opacity: 0.18;
+      pointer-events: none;
+      filter: blur(0.5px) drop-shadow(0 0 6px #ffb3de);
+      z-index: 1;
+      transition: opacity 0.4s;
+    }
+    .card::before {
+      top: 12px; left: 18px;
+      transform: rotate(-18deg);
+    }
+    .card::after {
+      bottom: 12px; right: 18px;
+      transform: rotate(14deg);
+    }
+    header{
+      padding:20px;
+      background:var(--accent);
+      color:black;
+      text-align:center;
+    }
+    header h1{
+      margin:0;
+      font-size:32px;
+      font-family:'Dancing Script',cursive;
+    }
+    .content{
+      padding:30px;
+      line-height:1.7;
+      overflow:auto;
+      flex:1 1 auto;
+      min-height:0;
+    }
+    .btn{
+      margin-top:20px;
+      padding:12px 20px;
+      border:none;
+      border-radius:12px;
+      background:var(--accent);
+      color:black;
+      font-size:16px;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.3s;
+    }
+    .btn:hover{transform:scale(1.05);background:#e6e6e6}
+    #hiddenMessage{
+    display:none;
+    margin-top:20px;
+    padding:24px 24px 24px 28px;
+    background:linear-gradient(135deg,#262626 80%,#ffb3de22 100%);
+    border-radius:28px 48px 28px 48px/48px 28px 48px 28px;
+    border:2px solid #ffb3de;
+    box-shadow:0 0 16px 2px #ffb3de55,0 2px 8px #0008;
+    border-radius:18px;
+    opacity:0;
+    transform:scale(0.96);
+    transition:opacity 0.7s cubic-bezier(.77,0,.18,1),transform 0.7s cubic-bezier(.77,0,.18,1);
+    /* Scrollbar personalizado para el mensaje secreto y el contenido */
+    #hiddenMessage::-webkit-scrollbar,
+    .content::-webkit-scrollbar {
+      width: 12px;
+      background: #2a2a2a;
+      border-radius: 12px;
+    }
+    #hiddenMessage::-webkit-scrollbar-thumb,
+    .content::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg,#ffb3de 40%,#ff66cc 100%);
+      border-radius: 12px;
+      border: 2px solid #2a2a2a;
+      box-shadow: 0 0 6px #ffb3de99;
+    }
+    #hiddenMessage::-webkit-scrollbar-thumb:hover,
+    .content::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg,#ff66cc 40%,#ffb3de 100%);
+    }
+    #hiddenMessage::-webkit-scrollbar-corner,
+    .content::-webkit-scrollbar-corner {
+      background: #2a2a2a;
+    }
+
+    /* Firefox */
+    #hiddenMessage,
+    .content {
+      scrollbar-width: thin;
+      scrollbar-color: #ffb3de #2a2a2a;
+    }
+      font-size:20px;
+      font-family:'Dancing Script',cursive;
+      font-style:italic;
+      color:#ffcce6;
+      max-height:40vh;
+      overflow:auto;
+      box-sizing:border-box;
+    }
+    canvas{
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      pointer-events:none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sonido para el botón de entrar -->
+  <audio id="interSound" preload="auto"><source src="inter.mp3" type="audio/mpeg"></audio>
+  <!-- Sonidos para el botón de silenciar música -->
+  <audio id="pop1" preload="auto"><source src="pop1.mp3" type="audio/mpeg"></audio>
+  <audio id="pop2" preload="auto"><source src="pop2.mp3" type="audio/mpeg"></audio>
+  <!-- 🎶 Música de fondo -->
+  <audio id="bgMusic" preload="auto" loop>
+    <source src="muc.mp3" type="audio/mpeg">
+
+  </audio>
+
+  <!-- Portada -->
+  <div id="menu">
+    <div class="menu-card">
+      <h1>💖 Feliz Cumpleaños 💖</h1>
+      <button id="startBtn">Entrar</button>
+      <button id="muteBtn">Silenciar música</button>
+    </div>
+  </div>
+
+  <!-- Carta romántica -->
+  <div id="game">
+    <div class="card">
+      <header>
+        <h1>Feliz Cumpleaños 🎉💖</h1>
+      </header>
+      <div class="content">
+        <p>Mi amor…</p>
+        <p>Quiero que sepas que eres la razón más bonita que tengo cada día. Desde que llegaste a mi vida, todo cambió: el mundo se siente distinto, más cálido, más ligero, porque estás tú. Eres ese pensamiento constante que me acompaña en silencio, el refugio al que vuelvo aun en los días más pesados, y el motivo por el que sonrío sin explicación.</p>
+        <p>Lo que siento por ti no tiene medida, porque va más allá de las palabras. No es solo cariño, no es solo amor… es algo tan profundo que parece infinito, algo que me hace querer quedarme contigo no solo hoy, sino en todos los días que vengan. Tú eres mi elección, mi certeza y mi mayor regalo.</p>
+        <p>Hoy en tu cumpleaños celebro tu vida, celebro que existas, y celebro que el destino me haya permitido encontrarte.  
+        Gracias por ser tú, por ser mi persona favorita. Pase lo que pase, siempre voy a estar contigo, porque mi corazón ya te pertenece.</p>
+        <p><strong>Feliz cumpleaños, amor mío. Te amo con todo lo que soy.</strong></p>
+
+        <button class="btn" id="mysteryBtn">Presióname si te atreves 💕</button>
+
+        <div id="hiddenMessage">
+          <h3>💌 Mensaje secreto 💌</h3>
+          <p>Lo que siento por ti arde dentro de mí como un fuego que nunca se apaga.  
+          No eres solo mi amor, eres mi deseo, mi obsesión y mi destino.  
+          Cada palabra tuya me enciende, cada instante contigo me hace necesitarte más.  
+          Tú eres mi todo, mi pasión y mi secreto más hermoso.  
+          Eres mío, y yo soy tuyo, <strong>sin límites</strong>. 💕</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="canvas"></canvas>
+
+  <script>
+    // --- Variables ---
+    const startBtn = document.getElementById('startBtn');
+    const muteBtn = document.getElementById('muteBtn');
+    const menu = document.getElementById('menu');
+    const game = document.getElementById('game');
+    const music = document.getElementById('bgMusic');
+    const btn = document.getElementById('mysteryBtn');
+    const hidden = document.getElementById('hiddenMessage');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let isMuted = false;
+    let particles = [];
+
+    function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+    window.addEventListener('resize',resize);resize();
+
+
+    // --- Dibujar estrella brillante ---
+    function drawStar(x, y, size, alpha) {
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      // Círculo central
+      let gradient = ctx.createRadialGradient(x, y, 0, x, y, size);
+      gradient.addColorStop(0, 'rgba(255,255,255,1)');
+      gradient.addColorStop(0.5, 'rgba(255,255,200,0.8)');
+      gradient.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.beginPath();
+      ctx.arc(x, y, size, 0, 2 * Math.PI);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // --- Partícula estrella ---
+    function Star(x, y) {
+      this.x = x;
+      this.y = y;
+      this.size = Math.random() * 1.5 + 0.5; // Tamaño pequeño
+      this.speed = Math.random() * 0.4 + 0.1; // Velocidad lenta
+      this.alpha = Math.random() * 0.5 + 0.5; // Brillo inicial
+      this.alphaDir = Math.random() > 0.5 ? 1 : -1; // Parpadeo
+    }
+    Star.prototype.draw = function () { drawStar(this.x, this.y, this.size, this.alpha); }
+    Star.prototype.update = function () {
+      this.y -= this.speed;
+      // Parpadeo suave
+      this.alpha += 0.01 * this.alphaDir;
+      if (this.alpha > 1) { this.alpha = 1; this.alphaDir = -1; }
+      if (this.alpha < 0.3) { this.alpha = 0.3; this.alphaDir = 1; }
+    };
+
+
+    // --- Animación ---
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+        // Eliminar si sale de pantalla por arriba
+        if (particles[i].y + particles[i].size < 0) { particles.splice(i, 1); i--; }
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Generar estrellas flotando continuamente en el menú
+    setInterval(() => {
+      if (menu.style.display !== "none") {
+        particles.push(new Star(Math.random() * canvas.width, canvas.height + 2));
+      }
+    }, 80); // Más frecuente para más estrellas
+
+    // --- Acciones ---
+
+    // --- Música: intentar reproducir al entrar ---
+    function playMusic() {
+      if (music.paused) {
+        music.volume = 0.7;
+        music.muted = isMuted;
+        music.play().catch(()=>{}); // Silenciar error de autoplay
+      }
+    }
+
+    const interSound = document.getElementById('interSound');
+    startBtn.onclick = ()=>{
+      interSound.currentTime = 0;
+      interSound.play();
+      menu.classList.add("fade-out");
+      setTimeout(()=>{
+        menu.style.display="none";
+        game.classList.add("show");
+        playMusic();
+      },1000);
+    };
+
+
+    const pop1 = document.getElementById('pop1');
+    const pop2 = document.getElementById('pop2');
+    muteBtn.onclick = ()=>{
+      isMuted = !isMuted;
+      music.muted = isMuted;
+      muteBtn.textContent = isMuted ? "Activar música" : "Silenciar música";
+      if (!isMuted) {
+        pop1.currentTime = 0; pop1.play();
+        playMusic();
+      } else {
+        pop2.currentTime = 0; pop2.play();
+      }
+    };
+
+    // Intentar reproducir música al cargar (algunos navegadores requieren interacción)
+    window.addEventListener('load', ()=>{
+      setTimeout(playMusic, 500);
+    });
+
+    // --- Sorpresa increíble al presionar el botón ---
+    btn.onclick = () => {
+      hidden.style.display = "block";
+      setTimeout(()=>{
+        hidden.style.opacity = "1";
+        hidden.style.transform = "scale(1)";
+      },10);
+      // Estallido de estrellas y corazones
+      for (let i = 0; i < 80; i++) {
+        // 60% estrellas, 40% corazones
+        if (Math.random() < 0.6) {
+          particles.push(new Star(Math.random() * canvas.width, Math.random() * canvas.height));
+        } else {
+          // Corazón animado (temporal, solo para el estallido)
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 24 + 16,
+            alpha: 1,
+            speed: Math.random() * 1.5 + 0.5,
+            vx: (Math.random() - 0.5) * 4,
+            vy: (Math.random() - 0.5) * 4,
+            draw() {
+              ctx.save();
+              ctx.translate(this.x, this.y);
+              ctx.scale(this.size / 50, this.size / 50);
+              ctx.beginPath();
+              ctx.moveTo(0, 0);
+              ctx.bezierCurveTo(0, -3, -5, -15, -25, -15);
+              ctx.bezierCurveTo(-55, -15, -55, 22, -55, 22);
+              ctx.bezierCurveTo(-55, 40, -35, 62, 0, 80);
+              ctx.bezierCurveTo(35, 62, 55, 40, 55, 22);
+              ctx.bezierCurveTo(55, 22, 55, -15, 25, -15);
+              ctx.bezierCurveTo(10, -15, 0, -3, 0, 0);
+              ctx.closePath();
+              ctx.fillStyle = `rgba(255,105,180,${this.alpha})`;
+              ctx.shadowColor = '#ffb3de';
+              ctx.shadowBlur = 16;
+              ctx.fill();
+              ctx.restore();
+            },
+            update() {
+              this.x += this.vx;
+              this.y += this.vy;
+              this.alpha -= 0.012;
+            }
+          });
+        }
+      }
+      // Fondo de la carta con destellos animados
+      const card = document.querySelector('.card');
+      card.classList.add('amazing-bg');
+      setTimeout(()=>card.classList.remove('amazing-bg'), 3500);
+    };
+  </script>
+</body>
+</html>
